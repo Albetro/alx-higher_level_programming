@@ -1,35 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lists.h"
-
 /**
- *insert_node - Inserts a number into a sorted singly-linked list
- *@head: A pointer the head of the linked list
- *@number: The number to insert
- *
- *Return: If function fails - NULL. otherwise
- *	a pointer to the new mode
+ * insert_node - inserts a numuber into a linked list
+ * @head: head of the linked linked
+ * @number: number to be inserted in linked list
+ * Return: address of new node, or NULL-failure
  */
-
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *node = *head, *new;
+	listint_t *n_node;
+	listint_t *trail; /*temp*/
 
-	new = malloc(sizeof(listint_t));
-	if (new == NULL)
+	trail = *head;
+
+	n_node = malloc(sizeof(listint_t));
+	if (n_node == NULL)
 		return (NULL);
-	new->n = number;
+	n_node->n = number;
 
-	if (node == NULL || node->n >= number)
+	if (*head == NULL || (*head)->n > number)
 	{
-		new->next = node;
-		*head = new;
-		return (new);
+		n_node->next = *head;
+		*head = n_node;
+		return (n_node);
 	}
-
-	while (node && node->next && node->next->n < number)
-		node = node->next;
-
-	new->next = node->next;
-	node->next = new;
-
-	return (new);
+	while (trail->next != NULL)
+	{
+		if ((trail->next)->n >= number)
+		{
+			n_node->next = trail->next;
+			trail->next = n_node;
+			return (n_node);
+		}
+		trail = trail->next;
+	}
+	n_node->next = NULL;
+	trail->next = n_node;
+	return (n_node);
 }
