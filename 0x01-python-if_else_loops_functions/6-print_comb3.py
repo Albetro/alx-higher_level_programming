@@ -5,4 +5,4 @@ for j in range(0, 10):
         if j == 8 and k == 9:
             print("{:d}".format(k), end='\n')
         else:
-            print("{:d}".format(k), end=',')
+            print("{:d}".format(k), end=', ')
